@@ -1,5 +1,6 @@
 library(shiny)
 library(ellmer)
+library(bslib)
 
 # API Key
 gemini_key <- Sys.getenv("gemini_api_key")
@@ -32,21 +33,48 @@ chat_gem_utm <- chat_google_gemini(
 )
 
 
-
-
 # UI
 ui <- fluidPage(
-  titlePanel("UTM Generator (via Gemini + ellmer)"),
-  sidebarLayout(
-    sidebarPanel(
-      textInput("url", "URL", placeholder = "https://example.com"),
-      textAreaInput("description", "Campaign Description", rows = 4),
-      selectInput("team", "Marketing Team", choices = c("ad", "el", "acq", "mktg"), selected = "ad"),
-      actionButton("generate", "Generate UTM")
-    ),
-    mainPanel(
-      h4("Generated UTM Output"),
-      verbatimTextOutput("utm_output")
+  # Apply a modern theme using bslib
+  theme = bs_theme(
+    version = 5,
+    bootswatch = "minty",            
+    base_font = font_google("Inter"), 
+    primary = "#D3D3D3"               
+  ),
+  
+  ## title and description
+  fluidRow(
+    column(width = 8, offset = 2, align = "center",
+           h1("UTM Generator (via Gemini + ellmer)"),
+           tags$p("Enter your campaign details below and click Generate to receive a full set of UTM parameters. 
+              The output includes a parameter table and a GA4 tracking note.", class = "text-muted")
+    )
+  ),
+  
+  br(),
+  br(),
+  # Inputs section (centered and boxed)
+  fluidRow(
+    column(width = 8, offset = 2,
+           wellPanel(
+             textInput("url", "URL", placeholder = "https://example.com"),
+             textAreaInput("description", "Campaign Description", rows = 3),
+             selectInput("team", "Marketing Team", 
+                         choices = c("ad", "el", "acq", "mktg"), 
+                         selected = "ad"),
+             actionButton("generate", "Generate UTM", class = "btn btn-primary")
+           )
+    )
+  ),
+  
+  br(),  # Spacer
+  
+  # Output section
+  fluidRow(
+    column(width = 8, offset = 2,
+           h4("Generated UTM Output"),
+           verbatimTextOutput("utm_output")
     )
   )
 )
