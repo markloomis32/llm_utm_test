@@ -1,0 +1,12 @@
+name: llm_utm_test
+title: llm_utm_test
+username: mark-loomis
+account: mark-loomis
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 15070669
+bundleId: 10610507
+url: https://mark-loomis.shinyapps.io/llm_utm_test/
+version: 1
+asMultiple: FALSE
+asStatic: FALSE
