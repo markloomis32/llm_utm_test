@@ -4,6 +4,8 @@ library(ellmer)
 # API Key
 gemini_key <- Sys.getenv("gemini_api_key")
 
+
+
 # Prompt setup
 system_prompt_utm_1 <- paste(
   "Your task is to generate UTM parameters for tracking campaign performance.\n\n",
